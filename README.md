@@ -1,35 +1,46 @@
-# .
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+## 📝Git Commit Convention
 ```
+<타입>: <커밋 메시지 요약>
 
-### Compile and Hot-Reload for Development
+[본문 - 선택사항]
 
-```sh
-npm run dev
+[Footer - 선택사항]
 ```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
+예시 <br/>
 ```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+feat : 거래내역 조회 기능 추가
+- axios를 통해 db.json의 리스트 조회
 ```
+### 🏷️ 커밋 타입 (Commit Types)
+
+| 타입       | 설명                                 |
+|------------|--------------------------------------|
+| `feat`     |  새로운 기능 추가                   |
+| `fix`      |  버그 수정                         |
+| `docs`     |  문서 수정 (README 등)             |
+| `style`    |  코드 스타일 수정 (포맷팅, 세미콜론 등) |
+| `refactor` |  리팩토링 (기능 변화 없이 코드 개선) |
+| `test`     |  테스트 코드 추가 및 수정           |
+| `chore`    |  기타 변경 (빌드 설정, 패키지 등)  |
+| `perf`     |  성능 개선                          |
+| `ci`       |  CI 설정 관련 변경                 |
+| `build`    |  빌드 관련 파일 수정                |
+
+## 🌿 브랜치 전략 (Branch Strategy)
+
+### ✅ 기본 브랜치
+
+- `main`: 배포용 브랜치 (항상 안정된 상태 유지)
+
+### ✅ 기능 브랜치 규칙
+
+| 브랜치 유형     | 이름 규칙 예시                  | 설명                           |
+|----------------|------------------------------|--------------------------------|
+| 기능 추가      | `feat-<기능명>-<담당자>` | 새로운 기능 개발               |
+| 버그 수정      | `fix-<버그설명>-<담당자>`   | 버그 수정                      |
+| 문서 수정      | `docs-<설명>-<담당자>`                 | 문서 관련 수정                 |
+| 리팩토링       | `refactor-<설명>-<담당자>`  | 코드 리팩토링                  |
+| 테스트         | `test-<설명>-<담당자>`                 | 테스트 코드 작성 또는 수정     |
+| 기타 작업      | `chore-<설명>-<담당자>`                | 설정 파일 수정, 패키지 추가 등 |
+
+> 예시: `feat-transaction-abc`
