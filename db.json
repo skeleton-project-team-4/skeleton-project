@@ -40,37 +40,45 @@
   "incomeCategory": [
     {
       "id": "1",
-      "name": "월급"
+      "name": "월급",
+      "icon": "<i class=\"fa-solid fa-money-bill\"></i>"
     },
     {
       "id": "2",
-      "name": "용돈"
+      "name": "용돈",
+      "icon": "<i class=\"fa-solid fa-money-bill\"></i>"
     },
     {
       "id": "3",
-      "name": "이자"
+      "name": "이자",
+      "icon": "<i class=\"fa-solid fa-money-bill\"></i>"
     }
   ],
   "expenseCategory": [
     {
       "id": "1",
-      "name": "학습"
+      "name": "학습",
+      "icon": "<i class=\"fa-solid fa-graduation-cap\"></i>"
     },
     {
       "id": "2",
-      "name": "식비"
+      "name": "식비",
+      "icon": "<i class=\"fa-solid fa-utensils\"></i>"
     },
     {
       "id": "3",
-      "name": "교통비"
+      "name": "교통비",
+      "icon": "<i class=\"fa-solid fa-bus\"></i>"
     },
     {
       "id": "4",
-      "name": "유흥"
+      "name": "유흥",
+      "icon": "<i class=\"fa-solid fa-champagne-glasses\"></i>"
     },
     {
       "id": "5",
-      "name": "공과금"
+      "name": "공과금",
+      "icon": "<i class=\"fa-solid fa-house\"></i>"
     }
   ]
 }
