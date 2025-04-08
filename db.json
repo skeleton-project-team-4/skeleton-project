@@ -1,0 +1,76 @@
+{
+  "transactions": [
+    {
+      "id": "1",
+      "date": "2025-04-07",
+      "type": "income",
+      "category": "월급",
+      "detailCategory": "보너스",
+      "amount": 2000000,
+      "memo": "성과급 지급 받았습니다."
+    },
+    {
+      "id": "2",
+      "date": "2025-03-15",
+      "type": "expense",
+      "category": "학습",
+      "detailCategory": "책 구매",
+      "amount": 21000,
+      "memo": "자바 교재 구매했습니다."
+    },
+    {
+      "id": "3",
+      "date": "2025-04-15",
+      "type": "expense",
+      "category": "유흥",
+      "detailCategory": "술 약속",
+      "amount": 51000,
+      "memo": "친구들과 술 한잔 했습니다."
+    },
+    {
+      "id": "4",
+      "date": "2025-01-15",
+      "type": "income",
+      "category": "용돈",
+      "detailCategory": "용돈",
+      "amount": 300000,
+      "memo": "용돈 받았습니다"
+    }
+  ],
+  "incomeCategory": [
+    {
+      "id": "1",
+      "name": "월급"
+    },
+    {
+      "id": "2",
+      "name": "용돈"
+    },
+    {
+      "id": "3",
+      "name": "이자"
+    }
+  ],
+  "expenseCategory": [
+    {
+      "id": "1",
+      "name": "학습"
+    },
+    {
+      "id": "2",
+      "name": "식비"
+    },
+    {
+      "id": "3",
+      "name": "교통비"
+    },
+    {
+      "id": "4",
+      "name": "유흥"
+    },
+    {
+      "id": "5",
+      "name": "공과금"
+    }
+  ]
+}
