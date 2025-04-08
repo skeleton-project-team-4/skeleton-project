@@ -46,13 +46,26 @@ export const useTransactionsStore = defineStore('transactions', () => {
     return params
   }
 
+  //거래내역 전체조회
   const fetchTransactionList = async (sortBy = {}) => {
     try {
       const params = buildParams(sortBy)
       const { data } = await axios.get('/api/transactions', { params })
       transactions.value = data
     } catch (error) {
-      console.error('거래 내역을 가져오지 못했습니다.')
+      alert('거래 내역을 불러올 수 없습니다!')
+    }
+  }
+  const fetchTransaction = async (id) => {
+    try {
+      if (id === null || id === undefined) {
+        alert('거래 내역을 불러올 수 없습니다!')
+        return
+      }
+      const { data } = await axios.get(`/api/transactions/${id}`)
+      transactions.value = data
+    } catch (error) {
+      alert('거래 내역을 불러올 수 없습니다!')
     }
   }
 
@@ -62,7 +75,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
       await axios.post('/api/transactions', transaction)
       alert('저장되었습니다!')
     } catch (error) {
-      console.error('거래 저장 실패')
+      alert('거래 내역을 저장할 수 없습니다!')
     }
   }
 
@@ -72,7 +85,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
       await axios.put(`/api/transactions/${id}`, transaction)
       alert('수정되었습니다!')
     } catch (error) {
-      console.error('거래 수정 실패')
+      alert('거래 내역을 수정할 수 없습니다!')
     }
   }
 
@@ -82,13 +95,14 @@ export const useTransactionsStore = defineStore('transactions', () => {
       await axios.delete(`/api/transactions/${id}`)
       alert('삭제되었습니다!')
     } catch (error) {
-      console.error('거래 삭제 실패')
+      alert('거래 내역을 삭제할 수 없습니다!')
     }
   }
 
   return {
     getTransactions,
     fetchTransactionList,
+    fetchTransaction,
     createTransactions,
     modifyTransactions,
     deleteTransactions,
