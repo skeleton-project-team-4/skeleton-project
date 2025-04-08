@@ -5,9 +5,10 @@ export const useIncomeCategoryStore = defineStore('incomeCategory', () => {
   const fetchIncomeIcon = async (name) => {
     try {
       const response = await axios.get(`/api/incomeCategory/`, { params: { name } })
-      console.log(response)
       return response.data
-    } catch (error) {}
+    } catch (error) {
+      console.error('아이콘 로드 실패')
+    }
   }
   return { fetchIncomeIcon }
 })
