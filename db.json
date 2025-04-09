@@ -35,6 +35,24 @@
       "detailCategory": "용돈",
       "amount": 300000,
       "memo": "용돈 받았습니다"
+    },
+    {
+      "date": "2025-04-08",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "생일파티",
+      "amount": 1000000,
+      "memo": "내맘",
+      "id": "Tdev81i"
+    },
+    {
+      "date": "2025-04-08",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "생일파티",
+      "amount": 1000000,
+      "memo": "내맘",
+      "id": "1T1Scty"
     }
   ],
   "incomeCategory": [
