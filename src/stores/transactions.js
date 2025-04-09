@@ -4,6 +4,7 @@ import axios from 'axios'
 
 export const useTransactionsStore = defineStore('transactions', () => {
   const transactions = ref([])
+  const transaction = ref({}) //단일조회
   const filters = reactive({
     page: 1,
     limit: 10,
@@ -15,7 +16,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
   })
 
   const getTransactions = computed(() => transactions.value)
-
+  const getTransaction = computed(() => transaction.value)
   //params 생성 함수
   const buildParams = (sortBy = {}) => {
     //sortBy에 있으면 sortBy의 값으로, 없으면 default인 fiters의 값으로
@@ -63,7 +64,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
         return
       }
       const { data } = await axios.get(`/api/transactions/${id}`)
-      transactions.value = data
+      transaction.value = data
     } catch (error) {
       alert('거래 내역을 불러올 수 없습니다!')
     }
@@ -101,6 +102,7 @@ export const useTransactionsStore = defineStore('transactions', () => {
 
   return {
     getTransactions,
+    getTransaction,
     fetchTransactionList,
     fetchTransaction,
     createTransactions,
