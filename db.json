@@ -1,19 +1,10 @@
 {
   "transactions": [
     {
-      "id": "1",
-      "date": "2025-04-07",
-      "type": "income",
-      "category": "월급",
-      "detailCategory": "보너스",
-      "amount": 2000000,
-      "memo": "성과급 지급 받았습니다."
-    },
-    {
       "id": "2",
       "date": "2025-03-15",
       "type": "expense",
-      "category": "학습",
+      "category": "learning",
       "detailCategory": "책 구매",
       "amount": 21000,
       "memo": "자바 교재 구매했습니다."
@@ -22,7 +13,7 @@
       "id": "3",
       "date": "2025-04-15",
       "type": "expense",
-      "category": "유흥",
+      "category": "pleasure",
       "detailCategory": "술 약속",
       "amount": 51000,
       "memo": "친구들과 술 한잔 했습니다."
@@ -31,54 +22,72 @@
       "id": "4",
       "date": "2025-01-15",
       "type": "income",
-      "category": "용돈",
+      "category": "pinMoney",
       "detailCategory": "용돈",
       "amount": 300000,
       "memo": "용돈 받았습니다"
+    },
+    {
+      "date": "2025-04-08",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "생일파티",
+      "amount": 1000000,
+      "memo": "내맘",
+      "id": "Tdev81i"
+    },
+    {
+      "date": "2025-04-08",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "생일파티",
+      "amount": 1000000,
+      "memo": "내맘",
+      "id": "1T1Scty"
     }
   ],
   "incomeCategory": [
     {
       "id": "1",
-      "name": "월급",
-      "icon": "<i class=\"fa-solid fa-money-bill\"></i>"
+      "name": "salary",
+      "icon": "money-bill"
     },
     {
       "id": "2",
-      "name": "용돈",
-      "icon": "<i class=\"fa-solid fa-money-bill\"></i>"
+      "name": "pinMoney",
+      "icon": "money-bill"
     },
     {
       "id": "3",
-      "name": "이자",
-      "icon": "<i class=\"fa-solid fa-money-bill\"></i>"
+      "name": "interest",
+      "icon": "money-bill"
     }
   ],
   "expenseCategory": [
     {
       "id": "1",
-      "name": "학습",
-      "icon": "<i class=\"fa-solid fa-graduation-cap\"></i>"
+      "name": "learning",
+      "icon": "graduation-cap"
     },
     {
       "id": "2",
-      "name": "식비",
-      "icon": "<i class=\"fa-solid fa-utensils\"></i>"
+      "name": "food",
+      "icon": "utensils"
     },
     {
       "id": "3",
-      "name": "교통비",
-      "icon": "<i class=\"fa-solid fa-bus\"></i>"
+      "name": "transportation",
+      "icon": "bus"
     },
     {
       "id": "4",
-      "name": "유흥",
-      "icon": "<i class=\"fa-solid fa-champagne-glasses\"></i>"
+      "name": "pleasure",
+      "icon": "champagne-glasses"
     },
     {
       "id": "5",
-      "name": "공과금",
-      "icon": "<i class=\"fa-solid fa-house\"></i>"
+      "name": "utilityBills",
+      "icon": "house"
     }
   ]
 }
