@@ -95,14 +95,6 @@ const nextMonth = () => {
   }
 }
 
-watch(currentMonth, async () => {
-  const lastDate = getLastDateOfMonth(currentYear.value, currentMonth.value)
-  const formattedMonth = String(currentMonth.value).padStart(2, '0')
-  await transactionStore.fetchTransactionList({
-    date_gte: `${currentYear.value}-${formattedMonth}-01`,
-    date_lte: `${currentYear.value}-${formattedMonth}-${lastDate}`,
-  })
-})
 const labels = ref([])
 const icons = ref({})
 
@@ -112,10 +104,6 @@ const labelMap = {
   transportation: '교통',
   pleasure: '유흥',
   utilityBills: '공과금',
-}
-
-const getLastDateOfMonth = (year, month) => {
-  return new Date(year, month, 0).getDate()
 }
 
 const filterByMonth = (type) => {
@@ -129,9 +117,7 @@ const filterByMonth = (type) => {
   })
 }
 
-const expenseItems = computed(() => {
-  return filterByMonth('expense')
-})
+const expenseItems = computed(() => filterByMonth('expense'))
 
 //카테고리별로 지출액 계산
 const amountForCatgory = computed(() => {
@@ -176,12 +162,7 @@ const chartOptions = {
 }
 
 onMounted(async () => {
-  const lastDate = getLastDateOfMonth(currentYear.value, currentMonth.value)
-  const formattedMonth = String(currentMonth.value).padStart(2, '0')
-  await transactionStore.fetchTransactionList({
-    date_gte: `${currentYear.value}-${formattedMonth}-01`,
-    date_lte: `${currentYear.value}-${formattedMonth}-${lastDate}`,
-  })
+  await transactionStore.fetchTransactionList()
 
   const categoryData = await categoryStore.fetchCategory('expense')
   labels.value = categoryData.map((item) => labelMap[item.name] || item.name)
@@ -209,4 +190,3 @@ onMounted(async () => {
   margin-left: -10rem;
 }
 </style>
-

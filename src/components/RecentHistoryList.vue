@@ -76,11 +76,6 @@ const currentDate = ref(new Date())
 const currentYear = computed(() => currentDate.value.getFullYear())
 const currentMonth = computed(() => currentDate.value.getMonth() + 1)
 
-// 월 마지막 날짜 계산 함수
-const getLastDateOfMonth = (year, month) => {
-  return new Date(year, month, 0).getDate() //day0을 넣어서 마지막날 구함
-}
-
 // 해당 월의 거래 필터링
 const filterByMonth = (type) => {
   return transactions.value.filter((t) => {
@@ -111,12 +106,7 @@ const incomeItem = computed(() =>
 
 // 컴포넌트 마운트 시 해당 월 거래 내역 불러오기
 onMounted(() => {
-  const lastDate = getLastDateOfMonth(currentYear.value, currentMonth.value)
-  const formattedMonth = String(currentMonth).padStart(2, '0')
-  transactionStore.fetchTransactionList({
-    date_gte: `${currentYear}-${formattedMonth}-01`,
-    date_lte: `${currentYear}-${formattedMonth}-${lastDate}`,
-  })
+  transactionStore.fetchTransactionList()
 })
 </script>
 
