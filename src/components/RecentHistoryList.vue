@@ -26,7 +26,7 @@
     <div class="row" v-if="ShowExpense">
       <div class="my-3 col-12 d-flex justify-content-around">
         <span class="fw-bold" style="color: red">{{ currentMonth }}월 총지출:</span>
-        <span class="fw-bold">{{ expense }}원</span>
+        <span class="fw-bold">{{ expense.toLocaleString() }}원</span>
       </div>
       <hr class="mb-4" style="width: 100%" />
       <div v-if="expenseItem.length === 0">
@@ -38,14 +38,14 @@
         :key="item.id"
       >
         <span class="me-1">{{ item.detailCategory }}</span>
-        <span class="ms-1">{{ item.amount }}원</span>
+        <span class="ms-1">{{ item.amount.toLocaleString() }}원</span>
       </div>
     </div>
 
     <div class="row" v-else>
       <div class="my-3 col-12 d-flex justify-content-around">
         <span class="fw-bold" style="color: red">{{ currentMonth }}월 총수입:</span>
-        <span class="fw-bold">{{ income }}원</span>
+        <span class="fw-bold">{{ income.toLocaleString() }}원</span>
       </div>
       <hr style="width: 100%" />
       <div v-if="incomeItem.length === 0">
@@ -57,7 +57,7 @@
         :key="item.id"
       >
         <span class="fs-5 me-1">{{ item.detailCategory }}</span>
-        <span class="fs-5 ms-1">{{ item.amount }}원</span>
+        <span class="fs-5 ms-1">{{ item.amount.toLocaleString() }}원</span>
       </div>
     </div>
   </div>
