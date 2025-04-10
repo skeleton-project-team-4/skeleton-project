@@ -58,6 +58,14 @@
       </button>
     </div>
   </div>
+  <!-- 거래내역 modal -->
+  <TransactionModal
+    v-if="isModalOpen"
+    :modalCheck="isModalOpen"
+    :type="modalType"
+    :id="modalTransactionId"
+    @close="closeModal"
+  />
 </template>
 
 <script setup>
@@ -66,6 +74,7 @@ import axios from 'axios'
 import TransactionListItem from './TransactionListItem.vue'
 import { ref, computed, onMounted, watch } from 'vue'
 import { useCategoryStore } from '@/stores/category'
+import TransactionModal from './TransactionModal.vue'
 
 // 페이지 상태관리
 const currentPage = ref(1)
@@ -223,17 +232,24 @@ const expenseCategoryMapping = {
   pleasure: '유흥비',
   utilityBills: '공과금',
 }
-
+const isModalOpen = ref(false)
+const modalType = ref('add')
+const modalTransactionId = ref(null)
 // TransactionListItem 컴포넌트에서 open 이벤트 발생 시 호출되는 핸들러
 const handleOpenModal = (transaction) => {
-  alert('모달창 열람: ' + JSON.stringify(transaction))
-  // 여기에 모달 기능 추가
+  modalType.value = 'detail'
+  modalTransactionId.value = transaction.id
+  isModalOpen.value = true
 }
 
 // 거래 추가 버튼 클릭 핸들러
 const handleAdd = () => {
-  alert('거래 추가 버튼 클릭')
-  // 여기에 거래 추가 기능 구현
+  modalType.value = 'add'
+  modalTransactionId.value = null
+  isModalOpen.value = true
+}
+const closeModal = () => {
+  isModalOpen.value = false
 }
 </script>
 
