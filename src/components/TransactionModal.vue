@@ -398,6 +398,7 @@ const create = async () => {
   if (!validationInput()) return
   await createTransactions(newTransaction)
   emit('close')
+  emit('refresh')
 }
 
 // 수정 가능 여부
@@ -419,6 +420,7 @@ const modify = async () => {
   if (!validationInput('modify')) return
   await modifyTransactions(props.id, transaction.value)
   emit('close')
+  emit('refresh')
 }
 
 //삭제
@@ -426,6 +428,7 @@ const deleteTransaction = async () => {
   if (confirm('삭제하시겠습니까?')) {
     await deleteTransactions(props.id)
     emit('close')
+    emit('refresh')
   }
   return
 }
