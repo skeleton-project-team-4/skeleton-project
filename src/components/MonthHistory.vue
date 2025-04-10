@@ -1,3 +1,14 @@
+<template>
+  <div class="month-history">
+    <div class="calendar-summary-wrapper">
+      <MonthCalendar v-model="currentDate" :transactions="transactions" />
+      <div class="summary-box-wrapper">
+        <MonthSummary :currentDate="currentDate" :transactions="transactions" />
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import MonthCalendar from './MonthCalendar.vue'
@@ -13,17 +24,6 @@ onMounted(() => {
   transactionStore.fetchTransactionList()
 })
 </script>
-
-<template>
-  <div class="month-history">
-    <div class="calendar-summary-wrapper">
-      <MonthCalendar v-model="currentDate" :transactions="transactions" />
-      <div class="summary-box-wrapper">
-        <MonthSummary :currentDate="currentDate" :transactions="transactions" />
-      </div>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .month-history {
