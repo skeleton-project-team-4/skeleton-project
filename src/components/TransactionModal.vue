@@ -187,7 +187,7 @@
                     >
                       <input
                         type="text"
-                        v-model="transaction.amount"
+                        v-model="EditAmountText"
                         :disabled="!isEditable.amount"
                         class="form-control"
                         :class="isEditable.amount ? 'editable-input' : ''"
@@ -349,6 +349,29 @@ const amountText = computed({
       errorMsg.amount = ''
     } else {
       newTransaction.amount = null
+      errorMsg.amount = '금액은 0으로 시작하지 않는 숫자만 입력 가능합니다.'
+    }
+  },
+})
+
+const EditAmountText = computed({
+  get() {
+    return transaction.value.amount ? transaction.value.amount.toLocaleString() : ''
+  },
+  set(val) {
+    const raw = val.replace(/,/g, '')
+
+    if (/^[1-9]\d*$/.test(raw)) {
+      if (raw.length > 15) {
+        errorMsg.amount = '금액은 15자리 이하만 입력 가능합니다.'
+      } else {
+        transaction.value.amount = parseInt(raw)
+        errorMsg.amount = ''
+      }
+    } else if (raw === '') {
+      errorMsg.amount = ''
+    } else {
+      transaction.value.amount = null
       errorMsg.amount = '금액은 0으로 시작하지 않는 숫자만 입력 가능합니다.'
     }
   },
