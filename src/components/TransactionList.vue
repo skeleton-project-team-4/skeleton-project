@@ -65,6 +65,7 @@ import { useTransactionsStore } from '@/stores/transactions'
 import axios from 'axios'
 import TransactionListItem from './TransactionListItem.vue'
 import { ref, computed, onMounted, watch } from 'vue'
+import { useCategoryStore } from '@/stores/category'
 
 // 페이지 상태관리
 const currentPage = ref(1)
@@ -88,6 +89,7 @@ const endDate = ref('')
 // Pinia store로 거래 내역 데이터 가져오기
 const transactionStore = useTransactionsStore()
 const transactions = computed(() => transactionStore.getTransactions)
+const categoryStore = useCategoryStore()
 
 // 컴포넌트 마운트 시 데이터 fetch
 onMounted(async () => {
@@ -189,12 +191,7 @@ const fetchTransactions = async () => {
  */
 const fetchCategoryData = async () => {
   try {
-    const [resIncome, resExpense] = await Promise.all([
-      axios.get('/api/incomeCategory'),
-      axios.get('/api/expenseCategory'),
-    ])
-    incomeCategories.value = resIncome.data
-    expenseCategories.value = resExpense.data
+    expenseCategories.value = await categoryStore.fetchCategory('expense')
   } catch (e) {
     alert('카테고리 데이터 로딩 오류: ' + e)
   }
