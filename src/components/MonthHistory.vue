@@ -28,6 +28,7 @@ onMounted(() => {
 <style scoped>
 .month-history {
   background-color: #f6f4f4;
+  box-shadow: 5px 5px 5px rgb(201, 201, 201);
   width: 900px;
   height: 550px;
   box-sizing: border-box;
