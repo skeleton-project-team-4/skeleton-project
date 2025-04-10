@@ -6,8 +6,8 @@
       <label for="categorySelect">카테고리: </label>
       <select id="categorySelect" v-model="selectedCategory">
         <option value="">전체</option>
-        <option v-for="cat in expenseCategories" :key="cat.id" :value="cat.name">
-          {{ expenseCategoryMapping[cat.name] || cat.name }}
+        <option v-for="option in combinedCategoryOptions" :key="option.value" :value="option.value">
+          {{ option.text }}
         </option>
       </select>
 
@@ -18,7 +18,7 @@
           월별
         </label>
         <!-- 월별선택 UI -->
-        <select v-model="selectedMonth">
+        <select v-model="selectedMonth" :disabled="!isMonthly">
           <option value="">월 선택</option>
           <option v-for="m in 12" :key="m" :value="m">{{ m }}월</option>
         </select>
@@ -29,12 +29,12 @@
         </label>
         <!-- 기간별 선택 UI -->
         <div class="range-filter">
-          <input type="date" v-model="startDate" />
-          <input type="date" v-model="endDate" />
+          <input type="date" v-model="startDate" :disabled="!isRange" />
+          <input type="date" v-model="endDate" :disabled="!isRange" />
         </div>
       </div>
       <!-- 거래 추가 버튼 (기능 X) -->
-      <button class="btn btn-primary btn-add" @click="handleAdd">추가</button>
+      <button class="btn-add" @click="handleAdd">추가</button>
     </div>
 
     <!-- 거래 내역 리스트 -->
@@ -65,6 +65,7 @@
     :type="modalType"
     :id="modalTransactionId"
     @close="closeModal"
+    @refresh="fetchTransactions"
   />
 </template>
 
@@ -200,6 +201,7 @@ const fetchTransactions = async () => {
  */
 const fetchCategoryData = async () => {
   try {
+    incomeCategories.value = await categoryStore.fetchCategory('income')
     expenseCategories.value = await categoryStore.fetchCategory('expense')
   } catch (e) {
     alert('카테고리 데이터 로딩 오류: ' + e)
@@ -232,6 +234,35 @@ const expenseCategoryMapping = {
   pleasure: '유흥비',
   utilityBills: '공과금',
 }
+
+const incomeCategoryMapping = {
+  salary: '월급',
+  pinMoney: '용돈',
+  interest: '이자',
+}
+
+const combinedCategoryOptions = computed(() => {
+  // Object.entries()를 사용해 각각의 매핑 객체를 [key, value] 배열로 변환한 후, 옵션 객체로 매핑
+  const incomeOptions = Object.entries(incomeCategoryMapping).map(([key, value]) => ({
+    value: key,
+    text: value,
+  }))
+  const expenseOptions = Object.entries(expenseCategoryMapping).map(([key, value]) => ({
+    value: key,
+    text: value,
+  }))
+  const mergedOptions = [...incomeOptions, ...expenseOptions]
+  // 중복 제거 (value 키를 기준으로 중복 제거)
+  const uniqueOptionsMap = new Map()
+  mergedOptions.forEach((option) => uniqueOptionsMap.set(option.value, option))
+  const uniqueOptions = Array.from(uniqueOptionsMap.values())
+
+  // 한글 텍스트(text)를 기준으로 오름차순 정렬
+  uniqueOptions.sort((a, b) => a.text.localeCompare(b.text))
+
+  return uniqueOptions
+})
+
 const isModalOpen = ref(false)
 const modalType = ref('add')
 const modalTransactionId = ref(null)
@@ -289,8 +320,9 @@ const closeModal = () => {
   right: 1rem;
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  border-radius: 8px;
+  background-color: #2868b0;
+  color: white;
 }
 
 .transaction-list {
