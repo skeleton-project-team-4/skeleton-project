@@ -1,6 +1,18 @@
 <template>
   <div class="box">
-    <div class="mt-4 mb-3 fw-bold d-flex justify-content-center">{{ currentMonth }}월 통계</div>
+    <div class="mt-4 mb-3 fw-bold d-flex justify-content-center">
+      <button
+        class="fw-bold pe-4 pb-4"
+        style="border: none; background: none"
+        @click="previsousMonth"
+      >
+        <
+      </button>
+      <span class="fw-bold">{{ currentYear }}년 {{ currentMonth }}월 통계</span>
+      <button class="fw-bold ps-4 pb-4" style="border: none; background: none" @click="nextMonth">
+        >
+      </button>
+    </div>
     <div class="d-flex justify-content-center align-items-center">
       <div class="me-2 mt-5 chart-wrapper">
         <Doughnut :data="chartData" :options="chartOptions" />
@@ -27,7 +39,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { Doughnut } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 import { useTransactionsStore } from '@/stores/transactions'
@@ -62,9 +74,35 @@ const transactionStore = useTransactionsStore()
 const categoryStore = useCategoryStore()
 
 const transactions = computed(() => transactionStore.getTransactions)
-const currentYear = computed(() => currentDate.value.getFullYear())
-const currentMonth = computed(() => currentDate.value.getMonth() + 1)
+const currentYear = ref(currentDate.value.getFullYear())
+const currentMonth = ref(currentDate.value.getMonth() + 1)
 
+const previsousMonth = () => {
+  if (currentMonth.value === 1) {
+    currentMonth.value = 12
+    currentYear.value -= 1
+  } else {
+    currentMonth.value -= 1
+  }
+}
+
+const nextMonth = () => {
+  if (currentMonth.value === 12) {
+    currentMonth.value = 1
+    currentYear.value += 1
+  } else {
+    currentMonth.value += 1
+  }
+}
+
+watch(currentMonth, async () => {
+  const lastDate = getLastDateOfMonth(currentYear.value, currentMonth.value)
+  const formattedMonth = String(currentMonth.value).padStart(2, '0')
+  await transactionStore.fetchTransactionList({
+    date_gte: `${currentYear.value}-${formattedMonth}-01`,
+    date_lte: `${currentYear.value}-${formattedMonth}-${lastDate}`,
+  })
+})
 const labels = ref([])
 const icons = ref({})
 
@@ -170,3 +208,4 @@ onMounted(async () => {
   margin-left: -10rem;
 }
 </style>
+
