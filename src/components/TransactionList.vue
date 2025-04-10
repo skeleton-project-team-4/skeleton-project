@@ -33,10 +33,11 @@
       <!-- 거래 추가 버튼 (기능 X) -->
       <button class="btn-add" @click="handleAdd">추가</button>
     </div>
+
     <div class="totals">
-      <span>총 거래: {{ totalCount }} 건</span>
-      <span>총 지출: {{ globalTotalExpense.toLocaleString() }}원</span>
-      <span>총 수입: {{ globalTotalIncome.toLocaleString() }}원</span>
+      <h4>총 거래: {{ totalCount }} 건</h4>
+      <h4>총 지출: {{ globalTotalExpense.toLocaleString() }}원</h4>
+      <h4>총 수입: {{ globalTotalIncome.toLocaleString() }}원</h4>
     </div>
 
     <!-- 거래 내역 리스트 -->
@@ -316,7 +317,7 @@ const closeModal = () => {
 
 <style scoped>
 .transaction-list-wrapper {
-  width: 90%;
+  width: 1380px;
   margin: 2rem auto;
   padding: 1.5rem;
   background-color: #f5f5f5;
@@ -330,8 +331,8 @@ const closeModal = () => {
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-bottom: 1rem;
-  padding: 3rem 0;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
 }
 
 .filter-bar label {
@@ -394,11 +395,16 @@ const closeModal = () => {
   font-weight: bold;
   color: #333;
 }
-
-.totals span {
+.totals {
   display: flex;
-  gap: 20px; /* 원하는 간격값으로 변경 가능 */
-  font-size: 1.1rem;
-  font-weight: bold;
+  gap: 80px; /* 각 h4 요소 간의 간격 */
+  align-items: center; /* 선택 사항: 수직 중앙 정렬 */
+}
+
+.totals h4 {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin: 0;
+  margin-bottom: 1rem;
 }
 </style>
