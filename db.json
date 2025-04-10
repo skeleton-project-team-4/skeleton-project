@@ -2,57 +2,266 @@
   "transactions": [
     {
       "id": "1",
-      "date": "2025-04-07",
+      "date": "2024-12-01",
       "type": "income",
       "category": "salary",
       "detailCategory": "보너스",
-      "amount": 2000000,
-      "memo": "성과급 지급 받았습니다."
+      "amount": 95000,
+      "memo": "12월 성과급"
     },
     {
       "id": "2",
-      "date": "2025-03-15",
+      "date": "2024-12-10",
       "type": "expense",
-      "category": "learning",
-      "detailCategory": "책 구매",
-      "amount": 21000,
-      "memo": "자바 교재 구매했습니다."
+      "category": "food",
+      "detailCategory": "저녁식사",
+      "amount": 50000,
+      "memo": "외식"
     },
     {
       "id": "3",
-      "date": "2025-04-15",
-      "type": "expense",
-      "category": "pleasure",
-      "detailCategory": "술 약속",
-      "amount": 51000,
-      "memo": "친구들과 술 한잔 했습니다."
-    },
-    {
-      "id": "4",
-      "date": "2025-01-15",
+      "date": "2025-03-02",
       "type": "income",
       "category": "pinMoney",
       "detailCategory": "용돈",
-      "amount": 300000,
-      "memo": "용돈 받았습니다"
+      "amount": 60000,
+      "memo": "할머니 용돈"
     },
     {
-      "date": "2025-04-08",
+      "id": "4",
+      "date": "2025-03-12",
       "type": "expense",
-      "category": "pleasure",
-      "detailCategory": "생일파티",
-      "amount": 1000000,
-      "memo": "내맘",
-      "id": "Tdev81i"
+      "category": "transportation",
+      "detailCategory": "지하철",
+      "amount": 1500,
+      "memo": "출근길"
     },
     {
-      "date": "2025-04-08",
+      "id": "5",
+      "date": "2025-03-25",
       "type": "expense",
       "category": "pleasure",
-      "detailCategory": "생일파티",
-      "amount": 1000000,
-      "memo": "내맘",
-      "id": "1T1Scty"
+      "detailCategory": "유흥",
+      "amount": 90000,
+      "memo": "회식"
+    },
+
+    {
+      "id": "6",
+      "date": "2025-04-01",
+      "type": "income",
+      "category": "interest",
+      "detailCategory": "예금이자",
+      "amount": 10000,
+      "memo": "정기예금"
+    },
+    {
+      "id": "7",
+      "date": "2025-04-07",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "카페",
+      "amount": 4000,
+      "memo": "커피 한 잔"
+    },
+    {
+      "id": "8",
+      "date": "2025-04-19",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "영화관",
+      "amount": 8000,
+      "memo": "주말 영화"
+    },
+    {
+      "id": "9",
+      "date": "2025-04-30",
+      "type": "expense",
+      "category": "learning",
+      "detailCategory": "책 구매",
+      "amount": 10000,
+      "memo": "프로그래밍 서적"
+    },
+    {
+      "id": "10",
+      "date": "2025-05-03",
+      "type": "income",
+      "category": "pinMoney",
+      "detailCategory": "용돈",
+      "amount": 50000,
+      "memo": "가정의 달 용돈"
+    },
+    {
+      "id": "11",
+      "date": "2025-05-03",
+      "type": "expense",
+      "category": "food",
+      "detailCategory": "점심식사",
+      "amount": 12000,
+      "memo": "외식"
+    },
+    {
+      "id": "12",
+      "date": "2025-05-10",
+      "type": "income",
+      "category": "salary",
+      "detailCategory": "보너스",
+      "amount": 90000,
+      "memo": "성과급"
+    },
+    {
+      "id": "13",
+      "date": "2025-05-15",
+      "type": "expense",
+      "category": "utilityBills",
+      "detailCategory": "전기세",
+      "amount": 45000,
+      "memo": "5월 전기세"
+    },
+    {
+      "id": "14",
+      "date": "2025-05-15",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "카페",
+      "amount": 7000,
+      "memo": "커피 한잔"
+    },
+    {
+      "id": "15",
+      "date": "2025-05-28",
+      "type": "expense",
+      "category": "learning",
+      "detailCategory": "서적",
+      "amount": 20000,
+      "memo": "개발 서적 구입"
+    },
+
+    {
+      "id": "16",
+      "date": "2025-06-01",
+      "type": "income",
+      "category": "salary",
+      "detailCategory": "알바비",
+      "amount": 30000,
+      "memo": "6월 알바비 (감소)"
+    },
+    {
+      "id": "17",
+      "date": "2025-06-01",
+      "type": "expense",
+      "category": "food",
+      "detailCategory": "저녁식사",
+      "amount": 15000,
+      "memo": "배달 음식"
+    },
+    {
+      "id": "18",
+      "date": "2025-06-10",
+      "type": "income",
+      "category": "interest",
+      "detailCategory": "예금이자",
+      "amount": 10000,
+      "memo": "정기예금 이자 (증가)"
+    },
+    {
+      "id": "19",
+      "date": "2025-06-20",
+      "type": "expense",
+      "category": "utilityBills",
+      "detailCategory": "수도세",
+      "amount": 24000,
+      "memo": "6월 수도세"
+    },
+    {
+      "id": "20",
+      "date": "2025-06-22",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "영화",
+      "amount": 14000,
+      "memo": "주말 영화"
+    },
+    {
+      "id": "21",
+      "date": "2025-06-30",
+      "type": "expense",
+      "category": "transportation",
+      "detailCategory": "지하철",
+      "amount": 24500,
+      "memo": "교통비 (증가)"
+    },
+    {
+      "id": "22",
+      "date": "2025-07-01",
+      "type": "income",
+      "category": "salary",
+      "detailCategory": "보너스",
+      "amount": 95000,
+      "memo": "7월 보너스"
+    },
+    {
+      "id": "23",
+      "date": "2025-07-01",
+      "type": "expense",
+      "category": "pleasure",
+      "detailCategory": "술자리",
+      "amount": 45000,
+      "memo": "회식"
+    },
+    {
+      "id": "24",
+      "date": "2025-07-03",
+      "type": "income",
+      "category": "pinMoney",
+      "detailCategory": "용돈",
+      "amount": 30000,
+      "memo": "생일 선물"
+    },
+    {
+      "id": "25",
+      "date": "2025-07-10",
+      "type": "expense",
+      "category": "learning",
+      "detailCategory": "온라인 강의",
+      "amount": 15000,
+      "memo": "프론트엔드 강의"
+    },
+    {
+      "id": "26",
+      "date": "2025-07-12",
+      "type": "expense",
+      "category": "transportation",
+      "detailCategory": "버스",
+      "amount": 1200,
+      "memo": "출근"
+    },
+    {
+      "id": "27",
+      "date": "2025-07-15",
+      "type": "expense",
+      "category": "utilityBills",
+      "detailCategory": "전기세",
+      "amount": 31000,
+      "memo": "7월 전기세"
+    },
+    {
+      "id": "28",
+      "date": "2025-07-20",
+      "type": "income",
+      "category": "interest",
+      "detailCategory": "이자",
+      "amount": 1800,
+      "memo": "소액 이자"
+    },
+    {
+      "id": "29",
+      "date": "2025-07-20",
+      "type": "expense",
+      "category": "food",
+      "detailCategory": "점심",
+      "amount": 8500,
+      "memo": "외식"
     }
   ],
   "incomeCategory": [
