@@ -94,7 +94,7 @@ onMounted(async () => {
 
 /* 아이콘(HTML string) */
 .icon {
-  font-size: 1.5rem; /* 아이콘 크기 조절 */
+  font-size: 2rem; /* 아이콘 크기 조절 */
   margin-right: 8px;
 }
 
@@ -121,8 +121,8 @@ onMounted(async () => {
 
 /* detailCategory */
 .detailCategory {
-  font-size: 1rem;
-  font-weight: normal;
+  font-size: 1.25rem;
+  font-weight: bold;
   color: #333;
 }
 
