@@ -7,7 +7,6 @@ export const useTransactionsStore = defineStore('transactions', () => {
   const transaction = ref({}) //단일조회
   const filters = reactive({
     page: 1,
-    limit: 10,
     sort: 'date',
     order: 'desc',
     date_gte: '2000-01-01',
@@ -22,7 +21,6 @@ export const useTransactionsStore = defineStore('transactions', () => {
     //sortBy에 있으면 sortBy의 값으로, 없으면 default인 fiters의 값으로
     const {
       page = filters.page,
-      limit = filters.limit,
       sort = filters.sort,
       order = filters.order,
       date_gte = filters.date_gte,
@@ -32,7 +30,6 @@ export const useTransactionsStore = defineStore('transactions', () => {
 
     const params = {
       _page: page,
-      _limit: limit,
       _sort: sort,
       _order: order,
       date_gte,
@@ -42,6 +39,11 @@ export const useTransactionsStore = defineStore('transactions', () => {
     //category가 있다면 params에 추가
     if (category?.trim()) {
       params.category = category
+    }
+
+    //limit가 있다면 params에 추가
+    if (sortBy.limit) {
+      params._limit = sortBy.limit
     }
 
     return params
