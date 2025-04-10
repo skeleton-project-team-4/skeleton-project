@@ -1,3 +1,14 @@
+<template>
+  <div class="month-history">
+    <div class="calendar-summary-wrapper">
+      <MonthCalendar v-model="currentDate" :transactions="transactions" />
+      <div class="summary-box-wrapper">
+        <MonthSummary :currentDate="currentDate" :transactions="transactions" />
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import MonthCalendar from './MonthCalendar.vue'
@@ -14,20 +25,10 @@ onMounted(() => {
 })
 </script>
 
-<template>
-  <div class="month-history">
-    <div class="calendar-summary-wrapper">
-      <MonthCalendar v-model="currentDate" :transactions="transactions" />
-      <div class="summary-box-wrapper">
-        <MonthSummary :currentDate="currentDate" :transactions="transactions" />
-      </div>
-    </div>
-  </div>
-</template>
-
 <style scoped>
 .month-history {
   background-color: #f6f4f4;
+  box-shadow: 5px 5px 5px rgb(201, 201, 201);
   width: 900px;
   height: 550px;
   box-sizing: border-box;

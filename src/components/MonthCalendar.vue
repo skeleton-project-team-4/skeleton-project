@@ -1,3 +1,27 @@
+<template>
+  <div>
+    <VCalendar
+      title-position="center"
+      mode="date"
+      v-model="calendarDate"
+      @did-move="handleMonthChanged"
+      class="calendar-component"
+    >
+      <template #day-content="{ day }">
+        <div class="vc-day-content">
+          <div>{{ day.day }}</div>
+          <div class="amount income" v-if="getIncome(day.date)" style="color: green">
+            +{{ getIncome(day.date).toLocaleString() }}원
+          </div>
+          <div class="amount expense" v-if="getExpense(day.date)" style="color: red">
+            -{{ getExpense(day.date).toLocaleString() }}원
+          </div>
+        </div>
+      </template>
+    </VCalendar>
+  </div>
+</template>
+
 <script setup>
 import { computed } from 'vue'
 
@@ -51,30 +75,6 @@ const handleMonthChanged = (page) => {
   calendarDate.value = newDate
 }
 </script>
-
-<template>
-  <div>
-    <VCalendar
-      title-position="center"
-      mode="date"
-      v-model="calendarDate"
-      @did-move="handleMonthChanged"
-      class="calendar-component"
-    >
-      <template #day-content="{ day }">
-        <div class="vc-day-content">
-          <div>{{ day.day }}</div>
-          <div class="amount income" v-if="getIncome(day.date)" style="color: green">
-            +{{ getIncome(day.date).toLocaleString() }}원
-          </div>
-          <div class="amount expense" v-if="getExpense(day.date)" style="color: red">
-            -{{ getExpense(day.date).toLocaleString() }}원
-          </div>
-        </div>
-      </template>
-    </VCalendar>
-  </div>
-</template>
 
 <style scoped>
 :deep(.vc-container) {

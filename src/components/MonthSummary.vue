@@ -1,3 +1,39 @@
+<template>
+  <div class="summary-box">
+    <div>
+      <div>총 수입</div>
+      <div class="amount">{{ totalIncome.toLocaleString() }} 원</div>
+    </div>
+    <div>
+      <div>총 지출</div>
+      <div class="amount">{{ totalExpense.toLocaleString() }} 원</div>
+    </div>
+    <div>
+      <div>순이익</div>
+      <div class="amount" :style="{ color: '#f33f31' }">{{ netAmount.toLocaleString() }} 원</div>
+    </div>
+  </div>
+
+  <div class="emoji">
+    <div v-if="netAmount < 0">
+      <div>분발하세요 ㅠㅅㅠ</div>
+      <font-awesome-icon
+        :icon="['fas', 'face-sad-tear']"
+        style="color: #f33f31"
+        class="emoji-icon"
+      />
+    </div>
+    <div v-else>
+      <div>부자 되겠어요~🤑</div>
+      <font-awesome-icon
+        :icon="['fas', 'face-laugh-squint']"
+        style="color: #20a316"
+        class="emoji-icon"
+      />
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { computed } from 'vue'
 
@@ -38,42 +74,6 @@ const totalExpense = computed(() => {
 
 const netAmount = computed(() => (props.currentDate ? totalIncome.value - totalExpense.value : 0))
 </script>
-
-<template>
-  <div class="summary-box">
-    <div>
-      <div>총 수입</div>
-      <div class="amount">{{ totalIncome.toLocaleString() }} 원</div>
-    </div>
-    <div>
-      <div>총 지출</div>
-      <div class="amount">{{ totalExpense.toLocaleString() }} 원</div>
-    </div>
-    <div>
-      <div>순이익</div>
-      <div class="amount" :style="{ color: '#f33f31' }">{{ netAmount.toLocaleString() }} 원</div>
-    </div>
-  </div>
-
-  <div class="emoji">
-    <div v-if="netAmount < 0">
-      <div>분발하세요 ㅠㅅㅠ</div>
-      <font-awesome-icon
-        :icon="['fas', 'face-sad-tear']"
-        style="color: #f33f31"
-        class="emoji-icon"
-      />
-    </div>
-    <div v-else>
-      <div>부자 되겠어요~🤑</div>
-      <font-awesome-icon
-        :icon="['fas', 'face-laugh-squint']"
-        style="color: #20a316"
-        class="emoji-icon"
-      />
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .summary-box {
