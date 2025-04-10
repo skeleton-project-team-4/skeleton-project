@@ -8,7 +8,7 @@
       class="calendar-component"
     >
       <template #day-content="{ day }">
-        <div class="vc-day-content">
+        <div class="vc-day-content" @click="openForDateModal(day.date)">
           <div>{{ day.day }}</div>
           <div class="amount income" v-if="getIncome(day.date)" style="color: green">
             +{{ getIncome(day.date).toLocaleString() }}원
@@ -19,11 +19,18 @@
         </div>
       </template>
     </VCalendar>
+    <TransactionDateModal
+      v-if="isModalOpen && date"
+      :modalCheck="isModalOpen"
+      :date="date"
+      @close="closeModal"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import TransactionDateModal from './TransactionDateModal.vue'
 
 const props = defineProps({
   modelValue: {
@@ -73,6 +80,17 @@ const getExpense = (date) => {
 const handleMonthChanged = (page) => {
   const newDate = new Date(page[0].year, page[0].month - 1, 1) // Date의 month는 0부터
   calendarDate.value = newDate
+}
+
+const isModalOpen = ref(false)
+const date = ref(null)
+
+const openForDateModal = (selectDate) => {
+  date.value = selectDate
+  isModalOpen.value = true
+}
+const closeModal = () => {
+  isModalOpen.value = false
 }
 </script>
 
