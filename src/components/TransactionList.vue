@@ -68,7 +68,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 
 // 페이지 상태관리
 const currentPage = ref(1)
-const limit = 5 // 한 페이지에 표시할 항목 수
+const limit = 10 // 한 페이지에 표시할 항목 수
 const totalCount = ref(0)
 const totalPages = computed(() => Math.ceil(totalCount.value / limit))
 
