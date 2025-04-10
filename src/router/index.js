@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'transaction-history',
       component: () => import('../views/TransactionHistory.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      component: () => import('../views/NotFound.vue'),
+    },
   ],
 })
 
