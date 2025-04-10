@@ -163,6 +163,7 @@ onMounted(async () => {
   overflow-x: hidden;
   background-color: #f5f5f5;
   font-size: 24px;
+  box-shadow: 0px 5px 5px #c9c9c9;
 }
 .chart-wrapper {
   height: 564px;

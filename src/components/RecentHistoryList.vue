@@ -125,12 +125,11 @@ onMounted(() => {
   font-size: 20px;
 }
 .recentbox {
-  margin-left: 30px;
   width: 450px;
   height: 550px;
   overflow-x: hidden;
   background-color: #f5f5f5;
-  margin-top: 25px;
+  box-shadow: 0px 5px 5px #c9c9c9;
 }
 .custom-button-muted {
   color: #b0b0b0;
