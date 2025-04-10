@@ -386,7 +386,7 @@ const validationInput = (mode = 'create') => {
   const isValid = requiredFields.every((field) => !!target[field])
 
   if (!isValid) {
-    alert('모든 내용은 빈칸 없이 작성되어야 합니다!')
+    alert('모든 내용은 빈칸 없이 형식에 맞게 작성되어야 합니다!')
     return false
   }
 
@@ -398,6 +398,7 @@ const create = async () => {
   if (!validationInput()) return
   await createTransactions(newTransaction)
   emit('close')
+  emit('refresh')
 }
 
 // 수정 가능 여부
@@ -411,6 +412,9 @@ const isEditable = reactive({
 
 // 연필 버튼 클릭 시
 const inputToEdit = (field) => {
+  if (field === 'type') {
+    isEditable['category'] = true
+  }
   isEditable[field] = true
 }
 
@@ -419,6 +423,7 @@ const modify = async () => {
   if (!validationInput('modify')) return
   await modifyTransactions(props.id, transaction.value)
   emit('close')
+  emit('refresh')
 }
 
 //삭제
@@ -426,6 +431,7 @@ const deleteTransaction = async () => {
   if (confirm('삭제하시겠습니까?')) {
     await deleteTransactions(props.id)
     emit('close')
+    emit('refresh')
   }
   return
 }
