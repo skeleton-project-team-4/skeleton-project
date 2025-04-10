@@ -386,7 +386,7 @@ const validationInput = (mode = 'create') => {
   const isValid = requiredFields.every((field) => !!target[field])
 
   if (!isValid) {
-    alert('모든 내용은 빈칸 없이 작성되어야 합니다!')
+    alert('모든 내용은 빈칸 없이 형식에 맞게 작성되어야 합니다!')
     return false
   }
 
@@ -411,6 +411,9 @@ const isEditable = reactive({
 
 // 연필 버튼 클릭 시
 const inputToEdit = (field) => {
+  if (field === 'type') {
+    isEditable['category'] = true
+  }
   isEditable[field] = true
 }
 
