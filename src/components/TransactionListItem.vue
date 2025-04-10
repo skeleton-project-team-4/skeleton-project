@@ -30,7 +30,7 @@
 
 <script setup>
 import { useCategoryStore } from '@/stores/category'
-import { defineProps, defineEmits, computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 /* 
   incomeCategory, expenseCategory 배열도 prop으로 받아와,
   transaction.category(예: '월급', '유흥')에 맞는 아이콘을 검색할 수 있습니다.
