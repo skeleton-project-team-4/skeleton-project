@@ -29,7 +29,8 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, computed } from 'vue'
+import { useCategoryStore } from '@/stores/category'
+import { defineProps, defineEmits, computed, onMounted, ref } from 'vue'
 /* 
   incomeCategory, expenseCategory 배열도 prop으로 받아와,
   transaction.category(예: '월급', '유흥')에 맞는 아이콘을 검색할 수 있습니다.
@@ -37,8 +38,7 @@ import { defineProps, defineEmits, computed } from 'vue'
 */
 const props = defineProps({
   transaction: { type: Object, required: true },
-  incomeCategory: { type: Array, required: false, default: () => [] },
-  expenseCategory: { type: Array, required: false, default: () => [] },
+  // incomeCategory와 expenseCategory는 이제 사용하지 않을 수 있음.
 })
 
 const emit = defineEmits(['open'])
@@ -46,26 +46,22 @@ const emit = defineEmits(['open'])
 const openModal = () => {
   emit('open', props.transaction)
 }
+// 기본 아이콘 값 설정
+const iconClass = ref('question')
+// 스토어 사용
+const categoryStore = useCategoryStore()
+
 // 수입/지출 기호 설정
 const sign = computed(() => (props.transaction.type === 'expense' ? '-' : '+'))
 
 // 금액 포맷 (3자리 콤마 등)
 const formattedAmount = computed(() => props.transaction.amount.toLocaleString() + '원')
 
-/**
- * 아이콘 HTML을 계산해 반환:
- * 1) 수입이면 incomeCategory 배열에서 해당 category(예: '월급')를 찾는다.
- * 2) 지출이면 expenseCategory 배열에서 해당 category(예: '식비')를 찾는다.
- * 없는 경우 물음표 아이콘 등 대체 아이콘 사용 가능
- */
-const iconClass = computed(() => {
-  if (props.transaction.type === 'income') {
-    const cat = props.incomeCategory.find((c) => c.name === props.transaction.category)
-    return cat?.icon || 'question'
-  } else {
-    const cat = props.expenseCategory.find((c) => c.name === props.transaction.category)
-    return cat?.icon || 'question'
-  }
+onMounted(async () => {
+  // props.transaction.type와 props.transaction.category를 인자로 전달하여 fetchIcon 호출
+  const result = await categoryStore.fetchIcon(props.transaction.type, props.transaction.category)
+  // 결과가 있다면 해당 아이콘 값으로 업데이트, 없다면 기본값 'question' 유지
+  iconClass.value = result[0]?.icon || 'question'
 })
 </script>
 
