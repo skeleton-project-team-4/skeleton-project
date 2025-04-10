@@ -17,11 +17,8 @@
           <input type="checkbox" v-model="isMonthly" value="isMonthly" @change="onMonthlyChange" />
           월별
         </label>
-        <!-- 월별선택 UI -->
-        <select v-model="selectedMonth" :disabled="!isMonthly">
-          <option value="">월 선택</option>
-          <option v-for="m in 12" :key="m" :value="m">{{ m }}월</option>
-        </select>
+        <!-- 월 선택 -->
+        <input type="month" v-model="selectedYearMonth" :disabled="!isMonthly" />
         <!-- 기간별 체크박스 -->
         <label>
           <input type="checkbox" v-model="isRange" @change="onRangeChange" />
@@ -35,6 +32,11 @@
       </div>
       <!-- 거래 추가 버튼 (기능 X) -->
       <button class="btn-add" @click="handleAdd">추가</button>
+    </div>
+    <div class="totals">
+      <span>총 거래: {{ totalCount }} 건</span>
+      <span>총 지출: {{ globalTotalExpense.toLocaleString() }}원</span>
+      <span>총 수입: {{ globalTotalIncome.toLocaleString() }}원</span>
     </div>
 
     <!-- 거래 내역 리스트 -->
@@ -92,7 +94,7 @@ const selectedCategory = ref('')
 // 월별 / 기간별 체크박스, 관련 값
 const isMonthly = ref(false) // 월별 체크박스
 const isRange = ref(false) // 기간별 체크박스
-const selectedMonth = ref('') // 1~12 선택
+const selectedYearMonth = ref('') // "YYYY-MM" 형식의 값
 const startDate = ref('')
 const endDate = ref('')
 
@@ -100,6 +102,10 @@ const endDate = ref('')
 const transactionStore = useTransactionsStore()
 const transactions = computed(() => transactionStore.getTransactions)
 const categoryStore = useCategoryStore()
+
+// 전체(필터 조건에 맞는) 거래 합계를 저장할 ref 변수들
+const globalTotalExpense = ref(0)
+const globalTotalIncome = ref(0)
 
 // 컴포넌트 마운트 시 데이터 fetch
 onMounted(async () => {
@@ -114,7 +120,7 @@ watch(selectedCategory, async (newVal, oldval) => {
   await fetchTransactions()
 })
 
-watch([() => isMonthly.value, () => selectedMonth.value], () => {
+watch([() => isMonthly.value, () => selectedYearMonth.value], () => {
   // 월별 필터 조건이 바뀌면 다시 첫 페이지부터 요청
   currentPage.value = 1
   fetchTransactions()
@@ -130,12 +136,11 @@ watch([() => isRange.value, () => startDate.value, () => endDate.value], () => {
 function onMonthlyChange() {
   if (isMonthly.value) {
     isRange.value = false
-
     startDate.value = ''
     endDate.value = ''
   } else {
     // 월별 체크 해제 시 selectedMonth도 초기화
-    selectedMonth.value = ''
+    selectedYearMonth.value = ''
   }
 }
 
@@ -143,11 +148,50 @@ function onMonthlyChange() {
 function onRangeChange() {
   if (isRange.value) {
     isMonthly.value = false
-    selectedMonth.value = ''
+    selectedYearMonth.value = ''
   } else {
     // 기간별 체크 해제 시 date 값 초기화
     startDate.value = ''
     endDate.value = ''
+  }
+}
+// ExtraParmas
+function getExtraParams() {
+  const extraParams = {}
+  if (isMonthly.value && selectedYearMonth.value) {
+    // selectedYearMonth는 "YYYY-MM" 형식 (예: "2025-04")
+    const [year, month] = selectedYearMonth.value.split('-')
+    // month는 이미 두 자리 문자열 ("04")로 나오므로 추가 패딩은 필요 없음
+    const lastDay = new Date(year, Number(month), 0).getDate()
+    extraParams.date_gte = `${year}-${month}-01`
+    extraParams.date_lte = `${year}-${month}-${lastDay}`
+  } else if (isRange.value && startDate.value && endDate.value) {
+    extraParams.date_gte = startDate.value
+    extraParams.date_lte = endDate.value
+  }
+  return extraParams
+}
+
+// 전체 거래 합계를 가져오는 함수
+const fetchTotals = async () => {
+  try {
+    const extraParams = getExtraParams() // 동일한 날짜 필터 조건 계산
+    const params = { ...extraParams }
+    if (selectedCategory.value !== '') {
+      params.category = selectedCategory.value
+    }
+    params._limit = 10000 // 전체 데이터를 가져올 만큼 충분히 크게
+    const res = await axios.get('/api/transactions', { params })
+    const allData = res.data
+
+    globalTotalExpense.value = allData
+      .filter((tx) => tx.type === 'expense')
+      .reduce((sum, tx) => sum + tx.amount, 0)
+    globalTotalIncome.value = allData
+      .filter((tx) => tx.type === 'income')
+      .reduce((sum, tx) => sum + tx.amount, 0)
+  } catch (e) {
+    alert('총합 데이터 로딩 오류: ' + e)
   }
 }
 
@@ -155,41 +199,27 @@ function onRangeChange() {
 
 const fetchTransactions = async () => {
   try {
-    // extraParams 객체에 월별/기간별 필터 조건을 계산하여 저장
-    const extraParams = {}
-    if (isMonthly.value && selectedMonth.value) {
-      const year = '2025'
-      const month = Number(selectedMonth.value)
-      const paddedMonth = month < 10 ? '0' + month : month
-      const lastDay = new Date(year, month, 0).getDate() // 해당 월의 마지막 날 계산
-      extraParams.date_gte = `${year}-${paddedMonth}-01`
-      extraParams.date_lte = `${year}-${paddedMonth}-${lastDay}`
-    } else if (isRange.value && startDate.value && endDate.value) {
-      extraParams.date_gte = startDate.value
-      extraParams.date_lte = endDate.value
-    }
-    // 기본 axios GET 요청 파라미터 구성
+    const extraParams = getExtraParams() // 공통 로직 호출
     const params = {
       _page: currentPage.value,
       _limit: limit,
     }
-    // 카테고리 필터
     if (selectedCategory.value !== '') {
       params.category = selectedCategory.value
     }
-    // extraParams를 기본 params에 병합 (날짜 필터 조건 포함)
     Object.assign(params, extraParams)
 
     const res = await axios.get('/api/transactions', { params })
-    // 스토어 함수 호출로 거래 데이터 업데이트
     await transactionStore.fetchTransactionList({
       page: currentPage.value,
       limit,
       category: selectedCategory.value,
       ...extraParams,
     })
-    // 응답 헤더에서 전체 거래 개수를 추출하여 totalCount 업데이트
     totalCount.value = parseInt(res.headers['x-total-count'] || '0', 10)
+
+    // 전체 합계 계산도 업데이트 (아래 fetchTotals 참고)
+    await fetchTotals()
   } catch (e) {
     alert('거래 내역 로딩 오류: ' + e)
   }
@@ -363,5 +393,12 @@ const closeModal = () => {
   font-size: 1.1rem;
   font-weight: bold;
   color: #333;
+}
+
+.totals span {
+  display: flex;
+  gap: 20px; /* 원하는 간격값으로 변경 가능 */
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 </style>
