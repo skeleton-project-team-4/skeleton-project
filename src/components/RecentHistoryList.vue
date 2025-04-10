@@ -26,7 +26,7 @@
     <div class="row" v-if="ShowExpense">
       <div class="my-3 col-12 d-flex justify-content-around">
         <span class="fw-bold" style="color: red">{{ currentMonth }}월 총지출:</span>
-        <span class="fw-bold">{{ expense }}원</span>
+        <span class="fw-bold">{{ expense.toLocaleString() }}원</span>
       </div>
       <hr class="mb-4" style="width: 100%" />
       <div v-if="expenseItem.length === 0">
@@ -38,14 +38,14 @@
         :key="item.id"
       >
         <span class="me-1">{{ item.detailCategory }}</span>
-        <span class="ms-1">{{ item.amount }}원</span>
+        <span class="ms-1">{{ item.amount.toLocaleString() }}원</span>
       </div>
     </div>
 
     <div class="row" v-else>
       <div class="my-3 col-12 d-flex justify-content-around">
         <span class="fw-bold" style="color: red">{{ currentMonth }}월 총수입:</span>
-        <span class="fw-bold">{{ income }}원</span>
+        <span class="fw-bold">{{ income.toLocaleString() }}원</span>
       </div>
       <hr style="width: 100%" />
       <div v-if="incomeItem.length === 0">
@@ -57,7 +57,7 @@
         :key="item.id"
       >
         <span class="fs-5 me-1">{{ item.detailCategory }}</span>
-        <span class="fs-5 ms-1">{{ item.amount }}원</span>
+        <span class="fs-5 ms-1">{{ item.amount.toLocaleString() }}원</span>
       </div>
     </div>
   </div>
@@ -75,11 +75,6 @@ const transactions = computed(() => transactionStore.getTransactions)
 const currentDate = ref(new Date())
 const currentYear = computed(() => currentDate.value.getFullYear())
 const currentMonth = computed(() => currentDate.value.getMonth() + 1)
-
-// 월 마지막 날짜 계산 함수
-const getLastDateOfMonth = (year, month) => {
-  return new Date(year, month, 0).getDate() //day0을 넣어서 마지막날 구함
-}
 
 // 해당 월의 거래 필터링
 const filterByMonth = (type) => {
@@ -111,12 +106,7 @@ const incomeItem = computed(() =>
 
 // 컴포넌트 마운트 시 해당 월 거래 내역 불러오기
 onMounted(() => {
-  const lastDate = getLastDateOfMonth(currentYear.value, currentMonth.value)
-  const formattedMonth = String(currentMonth).padStart(2, '0')
-  transactionStore.fetchTransactionList({
-    date_gte: `${currentYear}-${formattedMonth}-01`,
-    date_lte: `${currentYear}-${formattedMonth}-${lastDate}`,
-  })
+  transactionStore.fetchTransactionList()
 })
 </script>
 
