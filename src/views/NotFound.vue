@@ -46,7 +46,7 @@ h2 {
   font-weight: bold;
 }
 .btn-box {
-  width: 20rem;
+  width: 25rem;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -55,7 +55,7 @@ h2 {
   background-color: rgb(178, 118, 27);
 }
 .btn {
-  width: 8rem;
+  width: 10rem;
 }
 .to-before {
   background-color: rgb(57, 57, 197);
