@@ -31,7 +31,7 @@
             />
             <div class="ps-4">{{ key }}:</div>
           </div>
-          <div class="ps-4">{{ value }}원</div>
+          <div class="ps-4">{{ value.toLocaleString() }}원</div>
         </div>
       </div>
     </div>
