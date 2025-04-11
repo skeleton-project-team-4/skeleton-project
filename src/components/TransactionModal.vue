@@ -346,6 +346,7 @@ const amountText = computed({
         errorMsg.amount = ''
       }
     } else if (raw === '') {
+      transaction.value.amount = null
       errorMsg.amount = ''
     } else {
       newTransaction.amount = null
@@ -369,6 +370,7 @@ const EditAmountText = computed({
         errorMsg.amount = ''
       }
     } else if (raw === '') {
+      transaction.value.amount = null
       errorMsg.amount = ''
     } else {
       transaction.value.amount = null
