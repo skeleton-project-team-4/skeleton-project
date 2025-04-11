@@ -340,6 +340,7 @@ const amountText = computed({
 
     if (/^[1-9]\d*$/.test(raw)) {
       if (raw.length > 15) {
+        newTransaction.amount = null
         errorMsg.amount = '금액은 15자리 이하만 입력 가능합니다.'
       } else {
         newTransaction.amount = parseInt(raw)
@@ -364,6 +365,7 @@ const EditAmountText = computed({
 
     if (/^[1-9]\d*$/.test(raw)) {
       if (raw.length > 15) {
+        transaction.value.amount = null
         errorMsg.amount = '금액은 15자리 이하만 입력 가능합니다.'
       } else {
         transaction.value.amount = parseInt(raw)
